@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lock Mode Activated</title>
+<style>
+  html, body {
+    margin: 0; padding: 0; height: 100%; overflow: hidden;
+    background: black; color: #ff0000;
+    font-family: monospace; text-align: center;
+    user-select: none;
+  }
+  #container {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw; max-width: 400px;
+  }
+  input {
+    width: 100%; padding: 12px; font-size: 20px;
+    margin-top: 20px; border: none; outline: none;
+    border-radius: 6px;
+  }
+  button {
+    margin-top: 10px; padding: 12px 20px;
+    font-size: 18px; background: red; color: white;
+    border: none; border-radius: 6px; cursor: pointer;
+  }
+  button:hover {
+    background: darkred;
+  }
+  h1 {
+    font-size: 32px;
+    margin-bottom: 0;
+  }
+  p {
+    margin-top: 5px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+  <div id="container">
+    <h1>📵 মোবাইল লকড</h1>
+    <p>গোপন কোড দিয়ে আনলক করো</p>
+    <input type="password" id="codeInput" placeholder="গোপন কোড লিখো" autocomplete="off" />
+    <button onclick="unlock()">আনলক</button>
+  </div>
+
+<script>
+  const secretCode = "Mr.momin";
+  const container = document.getElementById("container");
+  const codeInput = document.getElementById("codeInput");
+
+  // Unlock ফাংশন
+  function unlock() {
+    if (codeInput.value === secretCode) {
+      container.innerHTML = "<h1 style='color:lime'>✅ মোবাইল আনলকড!</h1><p>তুই সফল হয়েছিস।</p>";
+      document.body.style.background = "#000";
+      document.body.style.color = "lime";
+    } else {
+      alert("❌ ভুল কোড, আবার চেষ্টা কর");
+      codeInput.value = "";
+    }
+  }
+
+  // Backspace বা রিফ্রেশ ব্লক করা কঠিন ব্রাউজারে, তাই বোঝা দরকার এভাবে ব্যবহার করতে হবে:
+  // মোবাইলে ব্রাউজারে ফুলস্ক্রীন মোডে চালাও, আর ব্যাক বাটন এড়াও
+
+  // ডান ক্লিক, কন্টেক্সট মেনু বন্ধ
+  window.addEventListener('contextmenu', e => e.preventDefault());
+
+  // কিছু কি প্রেস ব্লক করার চেষ্টা
+  window.addEventListener('keydown', function(e) {
+    // F12, Ctrl+Shift+I, Ctrl+U ইত্যাদি ব্লক
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") ||
+      (e.ctrlKey && e.key.toLowerCase() === "u") ||
+      e.key === "Escape"
+    ) {
+      e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>
